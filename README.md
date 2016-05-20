@@ -37,7 +37,7 @@ Profile = new Route
 ```
 ### 4. Make a link
 
-```coffee-script
+```coffeescript
 HomeProfilePic.onClick, () ->
   router.push('Profile')
 ```
