@@ -3,7 +3,7 @@ A layer management module for [Framer](http://framerjs.com) that resembles an SP
 
 ### Demos
  - [Simple](http://share.framerjs.com/ql44rmd36tju/)
- - [Using Link API](http://share.framerjs.com/u2rvcvm0h2dq/)
+ - [Link API](http://share.framerjs.com/u2rvcvm0h2dq/)
 
 ## Quick Start
 #### 1. Include in your Framer project
