@@ -41,7 +41,7 @@ Button = new Link
 	parent: RouteOne
 ```
 
-## Animations
+#### 5. Add Animations
 By default, framer-router will just toggle visibilty. When you want to animate things, each `Route` has an optional `onEnter` and `onLeave` hook. Both `onEnter` and `onLeave` can call a callback function that simply emits `routeDidLeave` and `routeDidEnter` respectively.
 
 ```coffeescript
