@@ -42,7 +42,7 @@ Button = new Link
 ```
 
 ## Animations
-By default, framer-router will just toggle visibilty. When you want to animate things, each `Route` has an optional `onEnter` and `onLeave` hook.
+By default, framer-router will just toggle visibilty. When you want to animate things, each `Route` has an optional `onEnter` and `onLeave` hook. Both `onEnter` and `onLeave` can call a callback function that simply emits `routeDidLeave` and `routeDidEnter` respectively.
 
 ```coffeescript
 # You can use a state machine, or just the `animate` API to manage intros and outros
@@ -62,18 +62,19 @@ RouteOne.onLeave = () ->
 		curve: "spring(400,60,0)"
 ...
 
-RouteTwo.onEnter = () ->
+RouteTwo.onEnter = (done) ->
 	@animate
 		properties:
 			x: 0
 		curve: "spring(400,40,0)"
+	done() # emits 'routeDidEnter' event
 
-
-RouteTwo.onLeave = () ->
+RouteTwo.onLeave = (done) ->
 	@animate
 		properties:
 			x: 755
 		curve: "spring(400,60,0)"
+	done() # emits 'routeDidLeave' event
 ```
 
 #### Notes:
