@@ -11,47 +11,7 @@
 # Copyright (c) 2016 Jared Palmer
 # www.jaredpalmer.com
 # @jaredpalmer
-#
-# 1. Import the module
-#
-# { Router, Route } = require 'Router'
-#
-#
-# 2. Make a new Router instance
-#
-# router = new Router
-# 	indexRoute: 'A'
-#
-#
-# 3. Create some routes
-#
-# B = new Route
-# 	router: router # connect it to your router
-# 	name: 'B' # give your route a name (a.k.a. path)
-# 	backgroundColor: '#fff'
-# 	color: 'black'
-# 	html: 'Route B'
-# 	style:
-# 		fontSize: '100px'
-# 		lineHeight: '1335px'
-# 		textAlign: 'center'
-#
-# A = new Route
-# 	router: router
-# 	name: 'A'
-# 	backgroundColor: "#303138"
-# 	html: 'Route A'
-# 	style:
-# 		fontSize: '100px'
-# 		lineHeight: '1335px'
-# 		textAlign: 'center'
-#
-#
-# 4. Make a 'link'
-#
-# A.onClick () ->
-# 	router.push('B')
-#
+
 
 class Router extends Framer.BaseClass
 	constructor: (props) ->
@@ -72,9 +32,9 @@ class Router extends Framer.BaseClass
 						lastRoute: @lastRoute
 						nextRoute: @nextRoute
 
-			@emit "change:routeWillChange"
+			@emit "routeWillChange"
 			@route = i
-			@emit "change:routeDidChange" # could be interesting if you want.
+			@emit "routeDidChange" # could be interesting if you want.
 			if @debug then print routeDidChange: @route
 
 # @TODO:
@@ -97,21 +57,30 @@ class Route extends Layer
 		@height = Framer.Screen.height
 		@onLeave = props.onLeave
 		@onEnter = props.onEnter
-		@router.on "change:routeWillChange", @handleRouteChange
-
+		@router.on "routeWillChange", @handleRouteChange
+	
+	handleOnLeave: () =>
+		@emit "routeDidLeave"
+		if @router.debug then print routeDidLeave: @name
+	
+	handleOnEnter: () => 
+		@emit "routeDidEnter"
+		if @router.debug then print routeDidEnter: @name
+	
 	handleRouteChange: () =>
 		if @router.lastRoute is @name
-			if @router.debug then print @name + '.onLeave()'
-			@emit "change:onLeave"
-			if @onLeave then @onLeave()
-			@visible = false
+			if @router.debug then print routeWillLeave: @name
+			@emit "routeWillLeave"
+			@ignoreEvents = true
+			if @onLeave then @onLeave(@handleOnLeave) else visible = false
 
 		if @router.nextRoute is @name
-			if @router.debug then print @name + '.onEnter()'
-			@emit "change:onEnter"
+			if @router.debug then print routeWillEnter: @name
+			@emit "routeWillEnter"
+			@ignoreEvents = false
 			@visible = true
-			if @onEnter then @onEnter()
-
+			if @onEnter then @onEnter(@handleOnEnter)
+			
 # Link will tell the router to update.
 # Should feel a little like a React Router's <Link/>.
 class Link extends Layer
@@ -123,6 +92,7 @@ class Link extends Layer
 	# When you click a Link, change routes
 	clicked: () =>
 		@router.push(@to)
+
 
 
 exports.Route = Route
