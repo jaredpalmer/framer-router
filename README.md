@@ -78,6 +78,5 @@ RouteTwo.onLeave = (done) ->
 		curve: "spring(400,60,0)"
 	done() # emits 'routeDidLeave' event
 ```
-
-#### Notes:
-  - Huge credit to Michael Feldstein for inspiration (http://codepen.io/msfeldstein/pen/klxbq).
+#### Help 
+Get in touch on twitter [@jaredpalmer](http://twitter.com/jaredpalmer) with any questions or file an issue.
