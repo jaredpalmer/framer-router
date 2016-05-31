@@ -1,7 +1,8 @@
 # Framer Router
 
 ### Demos
- - [Enter and Exit Animations](http://share.framerjs.com/u2rvcvm0h2dq/)
+ - [Simple](http://share.framerjs.com/ql44rmd36tju/)
+ - [Using Link API](http://share.framerjs.com/u2rvcvm0h2dq/)
 
 ## Quick Start
 #### 1. Include in your Framer project
