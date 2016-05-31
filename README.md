@@ -1,5 +1,5 @@
 # Framer Router
-`framer-router` is layer management module for framer.js that resembles a real router. 
+A layer management module for [Framer](http://framerjs.com) that resembles an SPA router. 
 
 ### Demos
  - [Simple](http://share.framerjs.com/ql44rmd36tju/)
