@@ -1,8 +1,7 @@
 # Framer Router
 
 ### Demos
- - [Simple](http://share.framerjs.com/atwfebiny4ls/)
- - [Enter and Exit Animations](http://share.framerjs.com/zquynaxhsdqg/)
+ - [Enter and Exit Animations](http://share.framerjs.com/u2rvcvm0h2dq/)
 
 ## Quick Start
 #### 1. Include in your Framer project
@@ -13,63 +12,67 @@
 
 ```coffeescript
 router = new Router
-	indexRoute: 'Home'
-#	debug = true
+	indexRoute: 'RouteOne'
 ```
 
 #### 3. Create a few routes and some child layers to go in them
 
 ```coffeescript
-Home = new Route
+RouteOne = new Route
 	router: router
-	name: 'Home'
+	name: 'RouteOne'
 
-Profile = new Route
+RouteTwo = new Route
 	router: router # connect it to your router
-	name: 'Profile' # give your route a name
-	...
+	name: 'RouteTwo' # give your route a name
+	x: 755
 
 ```
-#### 4. Make links and all the nested layers you want.
+#### 4. Make a link
 
 ```coffeescript
-ProfilePic = new Layer
-	parent: Home
-	...
-  
-ProfilePic.onClick, () ->
-	router.push('Profile')
+RouteOne.onClick () ->
+	router.push('RouteTwo')
 
 # Or, you can use the Link API
 Button = new Link
 	router: router 
-	to: 'Profile' 
-	...
+	to: 'RouteTwo' 
+	parent: RouteOne
 ```
 
 ## Animations
 By default, framer-router will just toggle visibilty. When you want to animate things, each `Route` has an optional `onEnter` and `onLeave` hook.
 
 ```coffeescript
-Master = new Route
-	router: router
-	name: 'Master'
-	y: 0
-	scale: 1
-
 # You can use a state machine, or just the `animate` API to manage intros and outros
-Master.onEnter = () ->
+
+RouteOne.onEnter = () ->
 	@animate
 		properties:
 			y: 0
 			scale: 1
 		curve: "spring(400,40,0)" 
 
-Master.onLeave = () ->
+RouteOne.onLeave = () ->
 	@animate
 		properties:
 			y: 500
 			scale: .5
+		curve: "spring(400,60,0)"
+...
+
+RouteTwo.onEnter = () ->
+	@animate
+		properties:
+			x: 0
+		curve: "spring(400,40,0)"
+
+
+RouteTwo.onLeave = () ->
+	@animate
+		properties:
+			x: 755
 		curve: "spring(400,60,0)"
 ```
 
